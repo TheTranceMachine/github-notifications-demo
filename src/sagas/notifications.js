@@ -1,29 +1,28 @@
 import { put, takeEvery, select } from 'redux-saga/effects';
-import moment from 'moment';
+// import moment from 'moment';
 import {
   GET_NOTIFICATIONS,
   GET_MORE_NOTIFICATIONS,
-  SET_NOTIFICATION_AS_READ
+  SET_NOTIFICATION_AS_READ,
+  SET_NOTIFICATION_SUBSCRIPTION
 } from '../actionTypes/notifications';
-import { githubCliEnterprise } from '../api/authentication';
+import { githubClient } from '../api/authentication';
 import {
   getNotificationsSuccess,
   getNotificationsError,
   getMoreNotificationsSuccess,
-  setSince,
-  setNotificationAsReadSuccess,
-  setNotificationAsReadError
+  setNotificationAsReadSuccess
 } from '../actions/notifications';
 import { notify } from "../utils/electronNotifications";
 
 export const getSince = (state) => state.notifications.since;
+export const getRepositories = (state) => state.repositories.repositories;
 
 export function* getNotificationsSaga(showAllRead) {
   try {
-    const since = yield select(getSince);
-    const { data } = yield githubCliEnterprise.getData({path:`/notifications?since=${since}&all=${showAllRead}`});
+    const repositories = yield select(getRepositories);
+    const { data } = yield githubClient.getNotifications({ repositories });
     yield put(getNotificationsSuccess(data));
-    yield put(setSince(moment().toISOString()));
   } catch (e) {
     yield put(getNotificationsError(e));
   }
@@ -31,25 +30,29 @@ export function* getNotificationsSaga(showAllRead) {
 
 export function* getMoreNotificationsSaga(showAllRead) {
   try {
-    const since = yield select(getSince);
-    const { data } = yield githubCliEnterprise.getData({path:`/notifications?since=${since}&all=${showAllRead}`});
+    const repositories = yield select(getRepositories);
+    const { data } = yield githubClient.getNotifications({ repositories });
     if (data.length) notify(data);
     yield put(getMoreNotificationsSuccess(data));
-    yield put(setSince(moment().toISOString()));
   } catch (e) {
     yield put(getNotificationsError(e));
   }
 }
 
 export function* setNotificationAsReadSaga({ id }) {
-  const response = yield githubCliEnterprise.patchData({path: `/notifications/threads/${id}`});
-  if (response.status === 205) {
-    yield put(setNotificationAsReadSuccess(id));
-  } else {
-    yield put(setNotificationAsReadError());
+  yield put(setNotificationAsReadSuccess(id));
+}
+
+export function* setNotificationSubscriptionSaga(subscription) {
+  try {
+    const { id, ignored } = subscription;
+    yield put(setSubscriptionSuccess({ id, ignored }));
+  } catch (e) {
+    yield put(setSubscriptionError(e));
   }
 }
 
 export const fetchNotificationsSaga = takeEvery(GET_NOTIFICATIONS, getNotificationsSaga);
 export const fetchMoreNotificationsSaga = takeEvery(GET_MORE_NOTIFICATIONS, getMoreNotificationsSaga);
 export const updateNotificationAsReadSaga = takeEvery(SET_NOTIFICATION_AS_READ, setNotificationAsReadSaga);
+export const updateNotificationSubscription = takeEvery(SET_NOTIFICATION_SUBSCRIPTION, setNotificationSubscriptionSaga);

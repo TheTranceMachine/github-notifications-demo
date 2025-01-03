@@ -4,14 +4,13 @@ import {
   fetchMoreNotificationsSaga,
   updateNotificationAsReadSaga
 } from './notifications';
-import { fetchSubscriptionSaga, updateSubscriptionSaga } from './subscriptions';
+import { fetchRepositoriesSaga } from './repositories';
 
 export default function* rootSaga() {
   yield all([
     fetchNotificationsSaga,
     fetchMoreNotificationsSaga,
     updateNotificationAsReadSaga,
-    fetchSubscriptionSaga,
-    updateSubscriptionSaga
+    fetchRepositoriesSaga
   ]);
 }

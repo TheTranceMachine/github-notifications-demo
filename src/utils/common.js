@@ -1,28 +1,26 @@
-import React from "react";
 import { orderBy, uniq } from "lodash";
 
-export const processNotifications = (notificationArray, subscriptions) => {
+export const processNotifications = (notificationArray) => {
   let processedNotification = [];
-  for ( const notification of notificationArray) {
+  for (const notification of notificationArray) {
     const {
       id,
       reason,
       updated_at,
       subject: { title = '', url = '', type = '' } = {},
       repository: { full_name = '' } = {},
-      unread
+      unread,
+      ignored,
+      subscribed
     } = notification;
 
-    const matchingSubscriptions = subscriptions.find(sub => sub.id === id);
-    const subscribed = matchingSubscriptions !== undefined ? matchingSubscriptions.subscribed : null;
-    const ignored = matchingSubscriptions !== undefined ? matchingSubscriptions.ignored : null;
     const html_url = processPrUrl(url);
 
     const jiraTicket = findJiraTicketForNotifications(notification);
     const jira = jiraTicket[0] !== undefined ? jiraTicket[0] : '';
 
     const newNotification = {
-      id: `${id}-${updated_at}`,
+      id,
       reason,
       updated_at,
       title,
@@ -43,7 +41,8 @@ export const processPrUrl = (url) => {
   const parseUrl = new URL(url);
   const { hostname, pathname, protocol } = parseUrl;
   const path = pathname.split('/');
-  return `${protocol}//${hostname}/${path[4]}/${path[5]}/pull/${path[7]}`;
+  const newUrl = `${protocol}//${hostname}/${path[4]}/${path[5]}`;
+  return newUrl;
 }
 
 const findJiraTicketForNotifications = (item) => {

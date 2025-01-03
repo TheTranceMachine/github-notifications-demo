@@ -18,8 +18,7 @@ import UseEffects from "./useEffects";
 import DataTableToolbar from './DataTable/DataTableToolbar';
 import GlobalHeaderContainer from '../common/GlobalHeaderContainer';
 import GlobalInlineNotifications from '../common/GlobalInlineNotifications';
-import { getMoreNotifications, moveNotifications, setNotificationAsRead } from '../../actions/notifications';
-import { setSubscription } from "../../actions/subscriptions";
+import { getMoreNotifications, moveNotifications, setNotificationAsRead, setSubscription } from '../../actions/notifications';
 import { dataTableHeaders, dataTableRows } from './DataTable/DataTableData';
 import notificationTypes from './notificationTypes';
 
@@ -33,9 +32,7 @@ const Notifications = () => {
   const allNotifications = useSelector((state) => state.notifications.notifications);
   const allNewNotifications = useSelector((state) => state.notifications.newNotifications);
   const areNotificationsLoading = useSelector((state) => state.notifications.areNotificationsLoading);
-  const isSettingSubscriptionLoading = useSelector((state) => state.subscriptions.isSettingSubscriptionLoading);
-  const hasSettingSubscriptionError = useSelector((state) => state.subscriptions.hasSettingSubscriptionError);
-  const subscriptions = useSelector((state) => state.subscriptions.subscriptions);
+  const repositories = useSelector((state) => state.repositories.repositories);
 
   const toggleShowAll = () => {
     setShowAllRead(!showAllRead);
@@ -59,15 +56,13 @@ const Notifications = () => {
 
   const setSubscriptions = (selection, ignored) => {
     selection.forEach(({ id }) => {
-      const processedId = id.split('-')[0];
-      dispatch(setSubscription({ processedId, thread_id: processedId, ignored }));
+      dispatch(setSubscription({ id, ignored }));
     })
   }
 
   const markNotificationAsRead = (selection) => {
     selection.forEach(({ id }) => {
-      const processedId = id.split('-')[0];
-      dispatch(setNotificationAsRead(processedId));
+      dispatch(setNotificationAsRead(id));
     })
   }
 
@@ -76,13 +71,10 @@ const Notifications = () => {
       showAllRead={showAllRead}
       setNotifications={setNotifications}
       allNotifications={allNotifications}
-      notifications={notifications}
       notificationsTypeSelected={notificationsTypeSelected}
       allNewNotifications={allNewNotifications}
       areNotificationsLoading={areNotificationsLoading}
-      isSettingSubscriptionLoading={isSettingSubscriptionLoading}
-      hasSettingSubscriptionError={hasSettingSubscriptionError}
-      subscriptions={subscriptions}
+      repositories={repositories}
       dispatch={dispatch}
     >
       <GlobalHeaderContainer
@@ -95,11 +87,8 @@ const Notifications = () => {
         itemsLoading={areNotificationsLoading}
       >
         <div className="notifications">
-          <GlobalInlineNotifications
-            isSettingSubscriptionLoading={isSettingSubscriptionLoading}
-            hasSettingSubscriptionError={hasSettingSubscriptionError}
-          />
-          { !notifications.length
+          <GlobalInlineNotifications />
+          {!notifications.length
             ? <DataTableSkeleton
               showHeader={false}
               showToolbar={true}
@@ -123,46 +112,46 @@ const Notifications = () => {
                   getTableProps,
                   onInputChange,
                   selectedRows
-               }) => (
-                <TableContainer className="notifications__table">
-                  <DataTableToolbar
-                    onInputChange={onInputChange}
-                    filtersChecked={notificationsTypeSelected}
-                    setFilter={(e, id) => filterByType(e, id)}
-                    getBatchActionProps={getBatchActionProps}
-                    selectedRows={selectedRows}
-                    setSubscriptions={(selection, ignored) => setSubscriptions(selection, ignored)}
-                    setNotificationsAsRead={(selection) => markNotificationAsRead(selection)}
-                  />
-                  <Table {...getTableProps()}>
-                    <TableHead>
-                      <TableRow>
-                        <TableSelectAll {...getSelectionProps()} />
-                        {headers.map((header) => (
-                          <TableHeader {...getHeaderProps({header})}>
-                            {header.header}
-                          </TableHeader>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                    <TableBody className="notifications__table__body">
-                      {rows.map((row) => (
-                        <TableRow
-                          {...getRowProps({row})}
-                          className={classNames({
-                            'notifications__table__body__row--unread':
-                              row.cells[0].info.header === 'unread' && row.cells[0].value
-                          })}
-                        >
-                          <TableSelectRow {...getSelectionProps({row})} />
-                          {row.cells.map((cell) => (
-                            <TableCell key={cell.id}>{cell.value}</TableCell>
+                }) => (
+                  <TableContainer className="notifications__table">
+                    <DataTableToolbar
+                      onInputChange={onInputChange}
+                      filtersChecked={notificationsTypeSelected}
+                      setFilter={(e, id) => filterByType(e, id)}
+                      getBatchActionProps={getBatchActionProps}
+                      selectedRows={selectedRows}
+                      setSubscriptions={(selection, ignored) => setSubscriptions(selection, ignored)}
+                      setNotificationsAsRead={(selection) => markNotificationAsRead(selection)}
+                    />
+                    <Table {...getTableProps()}>
+                      <TableHead>
+                        <TableRow>
+                          <TableSelectAll {...getSelectionProps()} />
+                          {headers.map((header) => (
+                            <TableHeader {...getHeaderProps({ header })}>
+                              {header.header}
+                            </TableHeader>
                           ))}
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
+                      </TableHead>
+                      <TableBody className="notifications__table__body">
+                        {rows.map((row) => (
+                          <TableRow
+                            {...getRowProps({ row })}
+                            className={classNames({
+                              'notifications__table__body__row--unread':
+                                row.cells[0].info.header === 'unread' && row.cells[0].value
+                            })}
+                          >
+                            <TableSelectRow {...getSelectionProps({ row })} />
+                            {row.cells.map((cell) => (
+                              <TableCell key={cell.id}>{cell.value}</TableCell>
+                            ))}
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
                 )}
               />
             )

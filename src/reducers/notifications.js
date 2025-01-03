@@ -23,6 +23,20 @@ const updateNotification = (array, id) => {
   return insertObjectIntoArray(newArrayWithoutOldObject, findObjectToReplace, index);
 };
 
+const updateSubscription = (array, action) => {
+  console.log('action', action);
+  const { id, ignored } = action;
+  let updatedArray = [];
+  const findObjectToReplace = findMatchingElementById(array, id);
+  if (findObjectToReplace) {
+    const index = findElementIndexById(array, id);
+    const newArrayWithoutOldObject = removeObjectFromArrayById(array, id);
+    findObjectToReplace.ignored = ignored;
+    updatedArray = insertObjectIntoArray(newArrayWithoutOldObject, findObjectToReplace, index);
+  }
+  return updatedArray.length ? updatedArray : [...array, action];
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'GET_NOTIFICATIONS':
@@ -46,6 +60,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, notifications: updateNotification(state.notifications, action.id) }
     case 'SET_SINCE':
       return { ...state, since: action.date }
+    case 'SET_NOTIFICATION_SUBSCRIPTION':
+      return { ...state, notifications: updateSubscription(state.notifications, action.subscription) }
     default:
       return { ...state };
   }

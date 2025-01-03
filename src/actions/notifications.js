@@ -45,3 +45,8 @@ export const setNotificationAsReadError = (error) => ({
   type: types.SET_NOTIFICATION_AS_READ_ERROR,
   error
 });
+
+export const setSubscription = (subscription) => ({
+  type: types.SET_NOTIFICATION_SUBSCRIPTION,
+  subscription
+});

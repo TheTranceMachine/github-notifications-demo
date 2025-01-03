@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import notifications from './notifications';
-import subscriptions from './subscriptions';
+import repositories from './repositories';
 
 export default combineReducers({
   notifications,
-  subscriptions
+  repositories
 });

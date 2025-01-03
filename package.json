@@ -8,7 +8,7 @@
     "@carbon/icons-react": "^11.10.0",
     "@carbon/themes": "10.53.1",
     "@carbon/type": "10.43.1",
-    "@octokit/rest": "^18.0.11",
+    "@octokit/rest": "^21.0.0",
     "@reduxjs/toolkit": "^1.5.0",
     "carbon-components": "10.55.1",
     "carbon-components-react": "7.55.1",
@@ -25,7 +25,8 @@
     "react-scripts": "^5.0.1",
     "redux": "^4.2.0",
     "redux-saga": "^1.2.1",
-    "sass": "^1.32.11"
+    "sass": "^1.32.11",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "concurrently": "^6.2.0",
