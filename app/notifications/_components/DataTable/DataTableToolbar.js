@@ -7,7 +7,7 @@ import {
   TableToolbarMenu,
   TableToolbarSearch,
   Checkbox,
-} from "carbon-components-react";
+} from "@carbon/react";
 import { CheckmarkOutline } from "@carbon/icons-react";
 import toolbarMenuItems from "./toolbarMenuItems";
 import batchActions from "./batchActions";

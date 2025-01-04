@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, HeaderName, HeaderGlobalBar, HeaderGlobalAction, Button, Toggle } from "carbon-components-react";
+import { Header, HeaderName, HeaderGlobalBar, HeaderGlobalAction, Button, Toggle } from "@carbon/react";
 import { SidePanelCloseFilled, SidePanelOpenFilled, Renew, UserAvatarFilledAlt } from "@carbon/icons-react";
 
 const GlobalHeader = ({

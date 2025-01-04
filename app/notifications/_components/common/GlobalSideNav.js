@@ -1,5 +1,5 @@
 import React from "react";
-import { SideNav, SideNavItems, SideNavLink } from "carbon-components-react";
+import { SideNav, SideNavItems, SideNavLink } from "@carbon/react";
 
 const sideNavLinks = [
   {

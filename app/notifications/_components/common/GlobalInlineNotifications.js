@@ -1,5 +1,5 @@
 import React from "react";
-import { InlineNotification } from "carbon-components-react";
+import { InlineNotification } from "@carbon/react";
 
 const component = (props) => (
   <InlineNotification

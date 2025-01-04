@@ -13,7 +13,7 @@ import {
   TableSelectAll,
   TableSelectRow,
   DataTableSkeleton,
-} from "carbon-components-react";
+} from "@carbon/react";
 import classNames from "classnames";
 import UseEffects from "./notifications-wrapper";
 import DataTableToolbar from "./_components/DataTable/DataTableToolbar";

@@ -1,6 +1,6 @@
 import React from "react";
 import { DateTime } from "luxon";
-import { Button, Tag } from "carbon-components-react";
+import { Button, Tag } from "@carbon/react";
 import { Launch, Ticket, NotificationOffFilled, FlagFilled } from "@carbon/icons-react";
 
 const tagReason = (reason) => {
