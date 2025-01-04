@@ -1,0 +1,217 @@
+@use "@carbon/react/scss/themes" as *;
+@use "@carbon/react/scss/theme" as *;
+$carbon--theme: $carbon--theme--g90;
+@include carbon--theme();
+@use "@carbon/react";
+
+.login {
+  padding: 20px;
+
+  &__title {
+    font-size: 34px;
+    font-weight: lighter;
+    margin-bottom: 40px;
+  }
+
+  &__grid {
+    width: 800px;
+    margin-top: 10%;
+  }
+
+  &__input {
+    &__token,
+    &__url {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.global-header {
+  background-color: lighten($background, 5%);
+  border-bottom: 1px solid $border-subtle;
+
+  &__toggle-show-all .bx--form-item {
+    flex: unset;
+
+    label span {
+      margin-top: 0;
+    }
+  }
+
+  &__new-notifications-icon {
+    background-color: red;
+    padding: 5px 10px;
+    border-radius: 13px;
+    font-weight: bolder;
+  }
+
+  &__refresh-icon--spin {
+    animation-name: spin;
+    animation-duration: 500ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+}
+
+.side-nav {
+  background-color: #3d3d3d;
+  border-right: 3px solid #343434;
+
+  &__filters-menu {
+    border-top: 1px solid $border-subtle;
+  }
+
+  ul li {
+    .bx--side-nav__link {
+      span {
+        color: $text-primary !important;
+      }
+
+      &--current span,
+      &:hover span {
+        color: $text-inverse !important;
+      }
+    }
+
+    button {
+      color: $text-primary !important;
+
+      &:hover {
+        color: $text-inverse !important;
+      }
+    }
+  }
+}
+
+.main-content--offset {
+  margin-left: 16rem;
+}
+
+.notifications {
+  margin-top: 47px;
+  border-top: 1px solid black;
+
+  &__table {
+    &__body {
+      tr td {
+        padding: 1rem;
+      }
+
+      &__row--unread td {
+        background-color: lighten($background, 10%);
+      }
+    }
+
+    &__actions button {
+      background-color: #737373;
+      border: 2px solid #353535;
+      margin-left: 5px;
+
+      &:hover {
+        background-color: lighten(#737373, 10%);
+      }
+    }
+
+    &__toolbar__button {
+      &--all,
+      &--mention,
+      &--subscribed,
+      &--author,
+      &--review_requested {
+        svg {
+          margin-left: 5px;
+        }
+      }
+
+      &--all {
+        background-color: #8a6eff;
+        border: 1px solid #231755;
+
+        &:hover {
+          background-color: lighten(#8a6eff, 5%);
+          border: 1px solid lighten(#8a6eff, 5%);
+        }
+      }
+
+      &--mention {
+        background-color: #0e6027;
+        border: 1px solid #083d19;
+
+        &:hover {
+          background-color: lighten(#0e6027, 5%);
+          border: 1px solid lighten(#0e6027, 5%);
+        }
+      }
+
+      &--subscribed {
+        background-color: #525252;
+        border: 1px solid #353434;
+
+        &:hover {
+          background-color: lighten(#525252, 5%);
+          border: 1px solid lighten(#525252, 5%);
+        }
+      }
+
+      &--review_requested {
+        background-color: #a2191f;
+        border: 1px solid #601619;
+
+        &:hover {
+          background-color: lighten(#a2191f, 5%);
+          border: 1px solid lighten(#a2191f, 5%);
+        }
+      }
+
+      &--author {
+        background-color: #0043ce;
+        border: 1px solid #002b86;
+
+        &:hover {
+          background-color: lighten(#0043ce, 5%);
+          border: 1px solid lighten(#0043ce, 5%);
+        }
+      }
+    }
+  }
+
+  &__inline {
+    margin: 2px 0;
+    max-width: none;
+  }
+
+  &__tag {
+    &--gray {
+      border: 1px solid #353434;
+      box-shadow: 0 0 0 4px #3c3c3c;
+    }
+
+    &--red {
+      border: 1px solid #601619;
+      box-shadow: 0 0 0 4px #593436;
+    }
+
+    &--green {
+      border: 1px solid #083d19;
+      box-shadow: 0 0 0 4px #294632;
+    }
+
+    &--blue {
+      border: 1px solid #002b86;
+      box-shadow: 0 0 0 4px #244995;
+    }
+  }
+}
+
+.bx--overflow-menu-options {
+  padding: 5px 8px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

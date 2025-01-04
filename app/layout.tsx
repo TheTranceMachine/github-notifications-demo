@@ -2,9 +2,9 @@ import Image from "next/image";
 import type { ReactNode } from "react";
 import { StoreProvider } from "./StoreProvider";
 import { Nav } from "./components/Nav";
-import "./styles/globals.css";
+import "./styles/index.scss";
 import styles from "./styles/layout.module.css";
-import "@carbon/styles/css/styles.css";
+import "@carbon/react/scss/styles.scss";
 
 interface Props {
   readonly children: ReactNode;
