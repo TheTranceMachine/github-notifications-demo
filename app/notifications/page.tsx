@@ -1,24 +1,27 @@
 "use client";
 
-import React, { useState, Suspense } from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import cx from "classnames";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { selectRepositories } from "@/lib/features/repositories/repositoriesSlice";
-import { selectNotifications, selectNotificationsStatus } from "@/lib/features/notifications/notificationsSlice";
 import {
+  selectNotifications,
+  selectNotificationsStatus,
   selectNewNotifications,
   selectNewNotificationsStatus,
-} from "@/lib/features/notifications/newNotificationsSlice";
-import { getMoreNotifications } from "@/lib/features/notifications/newNotificationsSlice";
+  getMoreNotifications,
+  moveNotifications,
+} from "@/lib/features/notifications/notificationsSlice";
 import NotificationsWrapper from "./notifications-wrapper";
 import GlobalHeader from "./_components/common/global-header";
 import GlobalSideNav from "./_components/common/global-side-nav";
 
 const Notifications = () => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const [isToggled, setIsToggled] = useState(false);
-  const toggle = () => setIsToggled(!isToggled);
 
   const allNotifications = useAppSelector(selectNotifications);
   const allNotificationsStatus = useAppSelector(selectNotificationsStatus);
@@ -31,8 +34,7 @@ const Notifications = () => {
   };
 
   const collectNewNotifications = () => {
-    // dispatch(moveNotifications());
-    console.log(allNewNotifications);
+    dispatch(moveNotifications());
   };
 
   return (
@@ -42,18 +44,17 @@ const Notifications = () => {
         getItems={collectNewNotifications}
         newItemsNumber={allNewNotifications.length}
         itemsLoading={allNewNotificationsStatus === "loading"}
-        toggle={toggle}
+        toggle={() => setIsToggled(!isToggled)}
         isToggled={isToggled}
+        navigate={() => router.push("/")}
       />
       <GlobalSideNav activeLink="notifications" isSideNavExpanded={isToggled} />
       <div className={cx({ "main-content--offset": isToggled })}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <NotificationsWrapper
-            allNotifications={allNotifications}
-            allNotificationsStatus={allNotificationsStatus}
-            repositories={repositories}
-          />
-        </Suspense>
+        <NotificationsWrapper
+          allNotifications={allNotifications}
+          allNotificationsStatus={allNotificationsStatus}
+          repositories={repositories}
+        />
       </div>
     </>
   );

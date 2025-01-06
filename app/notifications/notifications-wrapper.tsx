@@ -20,33 +20,45 @@ import {
   TableSelectAll,
   TableSelectRow,
   DataTableSkeleton,
+  DataTableRow,
 } from "@carbon/react";
 import DataTableToolbar from "./_components/DataTable/data-table-toolbar";
 import { notificationTypes } from "./notification-types";
 import { dataTableHeaders, dataTableRows } from "./_components/DataTable/data-table-data";
-import { ProcessedNotification } from "../types";
+import { Notification, ProcessedNotification } from "../types";
 
-const NotificationsWrapper = ({ allNotifications, allNotificationsStatus, repositories }) => {
+type NotificationsWrapperProps = {
+  allNotifications: Notification[];
+  allNotificationsStatus: string;
+  repositories: any[];
+};
+
+const NotificationsWrapper = ({
+  allNotifications,
+  allNotificationsStatus,
+  repositories,
+}: NotificationsWrapperProps) => {
   const dispatch = useAppDispatch();
   const [notifications, setNotifications] = useState([]);
-  const [notificationsTypeSelected, setNotificationsTypeSelected] = useState(notificationTypes);
+  const [notificationsTypeSelected, setNotificationsTypeSelected] =
+    useState<Array<{ id: string; checked: boolean }>>(notificationTypes);
 
-  const filterByType = (event, id) => {
+  const filterByType = (id: string) => {
     const updatedArray = notificationsTypeSelected.map((type) =>
       type.id === id ? { ...type, checked: !type.checked } : type
     );
     setNotificationsTypeSelected(updatedArray);
   };
 
-  const setSubscriptions = (selection, ignored) => {
+  const setSubscriptions = (selection: DataTableRow<any[]>[], value: boolean) => {
     selection.forEach(({ id }) => {
-      dispatch(setNotificationSubscription({ id, ignored }));
+      dispatch(setNotificationSubscription({ id, ignored: value }));
     });
   };
 
-  const markNotificationAsRead = (selection) => {
+  const markNotificationAsRead = (selection: DataTableRow<any[]>[]) => {
     selection.forEach(({ id }) => {
-      dispatch(setNotificationAsRead(id));
+      dispatch(setNotificationAsRead({ id }));
     });
   };
 
@@ -67,22 +79,21 @@ const NotificationsWrapper = ({ allNotifications, allNotificationsStatus, reposi
     }
   }, [allNotifications]);
 
-  const countNotifications = (selectedType) => {
-    let notificationsByType: ProcessedNotification[] = [];
-    allNotifications.forEach((notification: ProcessedNotification) => {
-      const { reason: notificationType } = notification;
-      if (notificationType === selectedType) notificationsByType.push(notification);
-    });
-    return notificationsByType;
+  const countNotifications = (id: string) => {
+    return allNotifications
+      .map((notification) => {
+        if (notification.reason === id) return notification;
+      })
+      .filter((notification) => !!notification);
   };
 
   useEffect(() => {
     if (!!allNotifications.length) {
-      const notificationsByType: ProcessedNotification[] = [];
-
-      notificationsTypeSelected.forEach((notification: ProcessedNotification) => {
+      const notificationsByType: Notification[] = [];
+      notificationsTypeSelected.map((notification) => {
         if (notification.checked) notificationsByType.push(...countNotifications(notification.id));
       });
+
       if (notificationsByType.length) {
         const processedNotifications = processNotifications(notificationsByType);
         setNotifications(processedNotifications);
@@ -119,13 +130,15 @@ const NotificationsWrapper = ({ allNotifications, allNotificationsStatus, reposi
           }) => (
             <TableContainer className="notifications__table">
               <DataTableToolbar
-                onInputChange={onInputChange}
+                onInputChange={(event: "" | React.ChangeEvent<HTMLInputElement>, value?: string) =>
+                  onInputChange(event as React.ChangeEvent<HTMLInputElement>, value)
+                }
                 filtersChecked={notificationsTypeSelected}
-                setFilter={(e, id) => filterByType(e, id)}
+                setFilter={(id) => filterByType(id)}
                 getBatchActionProps={getBatchActionProps}
-                selectedRows={selectedRows}
-                setSubscriptions={(selection, ignored) => setSubscriptions(selection, ignored)}
-                setNotificationsAsRead={(selection) => markNotificationAsRead(selection)}
+                setSubscriptions={(value) => setSubscriptions(selectedRows, value)}
+                setNotificationsAsRead={() => markNotificationAsRead(selectedRows)}
+                totalSelected={selectedRows.length}
               />
               <Table {...getTableProps()}>
                 <TableHead>

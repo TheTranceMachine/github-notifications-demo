@@ -2,16 +2,16 @@ import React from "react";
 import { Header, HeaderName, HeaderGlobalBar, HeaderGlobalAction, Button, Toggle } from "@carbon/react";
 import { SidePanelCloseFilled, SidePanelOpenFilled, Renew, UserAvatarFilledAlt } from "@carbon/icons-react";
 
-const GlobalHeader = ({ autoRefreshView, getItems, newItemsNumber, itemsLoading, toggle, isToggled }) => (
+const GlobalHeader = ({ autoRefreshView, getItems, newItemsNumber, itemsLoading, toggle, isToggled, navigate }) => (
   <Header aria-label="Github Notifications" className="global-header">
     <Button
       aria-label="Open side menu"
       onClick={toggle}
-      kind="primary"
+      kind="secondary"
       renderIcon={isToggled ? SidePanelCloseFilled : SidePanelOpenFilled}
       iconDescription="Side menu"
       hasIconOnly
-      className="side-nav-toggle bx--header__action"
+      className="global-header__side-nav-toggle"
     />
     <HeaderName prefix="Github" className="global-header__header-name">
       Notifications
@@ -23,7 +23,7 @@ const GlobalHeader = ({ autoRefreshView, getItems, newItemsNumber, itemsLoading,
       <HeaderGlobalAction onClick={getItems} aria-label="NEW">
         <div className="global-header__new-notifications-icon">{newItemsNumber}</div>
       </HeaderGlobalAction>
-      <HeaderGlobalAction aria-label="LOG OUT">
+      <HeaderGlobalAction aria-label="LOG OUT" onClick={navigate}>
         <UserAvatarFilledAlt />
       </HeaderGlobalAction>
     </HeaderGlobalBar>

@@ -1,4 +1,9 @@
-export const toolbarMenuItems = [
+type ToolbarMenuItemsTypes = {
+  id: string;
+  label: string;
+};
+
+const toolbarMenuItems = [
   {
     id: "subscribed",
     label: "Subscribed",
@@ -16,3 +21,6 @@ export const toolbarMenuItems = [
     label: "Authored",
   },
 ];
+
+export { toolbarMenuItems };
+export type { ToolbarMenuItemsTypes };

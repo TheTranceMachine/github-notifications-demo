@@ -1,16 +1,26 @@
 const { NotificationOff, Notification } = require("@carbon/icons-react");
 
-export const batchActions = [
+type BatchActionsTypes = {
+  id: string;
+  text: string;
+  icon: any;
+  value: boolean;
+};
+
+const batchActions = [
   {
     id: "mute",
     text: "Mute",
     icon: NotificationOff,
-    bool: true,
+    value: true,
   },
   {
     id: "unmute",
     text: "Unmute",
     icon: Notification,
-    bool: false,
+    value: false,
   },
 ];
+
+export { batchActions };
+export type { BatchActionsTypes };
