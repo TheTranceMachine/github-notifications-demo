@@ -5,7 +5,10 @@ import cx from "classnames";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { selectRepositories } from "@/lib/features/repositories/repositoriesSlice";
 import { selectNotifications, selectNotificationsStatus } from "@/lib/features/notifications/notificationsSlice";
-import { selectNewNotifications } from "@/lib/features/notifications/newNotificationsSlice";
+import {
+  selectNewNotifications,
+  selectNewNotificationsStatus,
+} from "@/lib/features/notifications/newNotificationsSlice";
 import { getMoreNotifications } from "@/lib/features/notifications/newNotificationsSlice";
 import NotificationsWrapper from "./notifications-wrapper";
 import GlobalHeader from "./_components/common/global-header";
@@ -20,13 +23,25 @@ const Notifications = () => {
   const allNotifications = useAppSelector(selectNotifications);
   const allNotificationsStatus = useAppSelector(selectNotificationsStatus);
   const allNewNotifications = useAppSelector(selectNewNotifications);
+  const allNewNotificationsStatus = useAppSelector(selectNewNotificationsStatus);
   const repositories = useAppSelector(selectRepositories);
+
+  const fetchMoreNotifications = () => {
+    dispatch(getMoreNotifications(repositories));
+  };
+
+  const collectNewNotifications = () => {
+    // dispatch(moveNotifications());
+    console.log(allNewNotifications);
+  };
 
   return (
     <>
       <GlobalHeader
+        autoRefreshView={fetchMoreNotifications}
+        getItems={collectNewNotifications}
         newItemsNumber={allNewNotifications.length}
-        itemsLoading={allNotificationsStatus === "loading"}
+        itemsLoading={allNewNotificationsStatus === "loading"}
         toggle={toggle}
         isToggled={isToggled}
       />

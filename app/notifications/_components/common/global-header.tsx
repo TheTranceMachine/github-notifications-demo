@@ -13,10 +13,12 @@ const GlobalHeader = ({ autoRefreshView, getItems, newItemsNumber, itemsLoading,
       hasIconOnly
       className="side-nav-toggle bx--header__action"
     />
-    <HeaderName prefix="Github">Notifications</HeaderName>
+    <HeaderName prefix="Github" className="global-header__header-name">
+      Notifications
+    </HeaderName>
     <HeaderGlobalBar>
       <HeaderGlobalAction onClick={autoRefreshView} aria-label="CHECK FOR NEW">
-        <Renew className={itemsLoading ? "global-header__refresh-icon--spin" : ""} />
+        <Renew className={`global-header__refresh-icon ${itemsLoading ? "global-header__refresh-icon--spin" : ""}`} />
       </HeaderGlobalAction>
       <HeaderGlobalAction onClick={getItems} aria-label="NEW">
         <div className="global-header__new-notifications-icon">{newItemsNumber}</div>

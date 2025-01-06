@@ -1,45 +1,22 @@
 @use "@carbon/react";
 @use "@carbon/react/scss/theme" as *;
 @use "@carbon/react/scss/themes" as *;
-// $carbon--theme: $carbon--theme--g90;
-// @include carbon--theme();
-@use "sass:color";
+@use "@carbon/styles/scss/theme";
+@use "@carbon/styles/scss/themes";
 
 $background: #1d1d1d;
 
-.login {
-  padding: 20px;
+:root[data-carbon-theme="g10"] {
+  @include theme.theme(themes.$g10);
+}
 
-  &__title {
-    font-size: 34px;
-    font-weight: lighter;
-    margin-bottom: 40px;
-  }
-
-  &__grid {
-    width: 800px;
-    margin-top: 10%;
-  }
-
-  &__input {
-    &__token,
-    &__url {
-      margin-bottom: 20px;
-    }
-  }
+:root[data-carbon-theme="g100"] {
+  @include theme.theme(themes.$g100);
 }
 
 .global-header {
   background-color: lighten($background, 5%);
   border-bottom: 1px solid $border-subtle;
-
-  &__toggle-show-all .bx--form-item {
-    flex: unset;
-
-    label span {
-      margin-top: 0;
-    }
-  }
 
   &__new-notifications-icon {
     background-color: red;
