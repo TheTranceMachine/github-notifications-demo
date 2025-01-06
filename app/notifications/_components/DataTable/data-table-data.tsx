@@ -1,7 +1,9 @@
-import React from "react";
 import { DateTime } from "luxon";
 import { Button, Tag } from "@carbon/react";
-import { Launch, Ticket, NotificationOffFilled, FlagFilled } from "@carbon/icons-react";
+import { Launch, NotificationOffFilled, FlagFilled } from "@carbon/icons-react";
+import { setNotificationAsRead } from "@/lib/features/notifications/notificationsSlice";
+import { ProcessedNotification } from "@/app/types";
+import { useAppDispatch } from "@/lib/hooks";
 
 const tagReason = (reason) => {
   switch (reason) {
@@ -34,12 +36,11 @@ const tagReason = (reason) => {
 
 const onClick = (id, html_url) => {
   const dispatch = useAppDispatch();
-  const processedId = id.split("-")[0];
-  dispatch(setNotificationAsRead(processedId));
+  dispatch(setNotificationAsRead(id));
   window.open(html_url, "_blank");
 };
 
-const actions = (id, html_url, jira) => (
+const actions = (id, html_url) => (
   <div className="notifications__table__actions">
     <Button
       kind="secondary"
@@ -49,16 +50,6 @@ const actions = (id, html_url, jira) => (
       size="sm"
       onClick={() => onClick(id, html_url)}
     />
-    {jira && (
-      <Button
-        kind="secondary"
-        renderIcon={Ticket}
-        iconDescription="Jira"
-        hasIconOnly
-        size="sm"
-        onClick={() => window.open(`https://**REMOVED**/browse/${jira}`, "_blank")}
-      />
-    )}
   </div>
 );
 
@@ -93,21 +84,15 @@ export const dataTableHeaders = [
   },
 ];
 
-export const dataTableRows = (notifications) => {
-  let mappedNotifications = [];
-  notifications.forEach((notification) => {
-    const { id, reason, updated_at, title, html_url, full_name, ignored, unread, jira } = notification;
-    mappedNotifications.push({
-      id,
-      repo: full_name,
-      title,
-      reason: tagReason(reason),
-      // updated_at: moment(moment.utc(updated_at).toDate()).local().format("YYYY-MM-DD HH:mm:ss"),
-      updated_at: DateTime.fromISO(updated_at).toFormat("yyyy-MM-dd HH:mm:ss"),
-      actions: actions(id, html_url, jira),
-      muted: ignored ? <NotificationOffFilled /> : null,
-      unread: unread ? <FlagFilled /> : null,
-    });
-  });
-  return mappedNotifications;
+export const dataTableRows = (notifications: ProcessedNotification[]) => {
+  return notifications.map(({ id, reason, updated_at, title, html_url, full_name, ignored, unread }) => ({
+    id,
+    repo: full_name,
+    title,
+    reason: tagReason(reason),
+    updated_at: DateTime.fromISO(updated_at).toFormat("yyyy-MM-dd HH:mm:ss"),
+    actions: actions(id, html_url),
+    muted: ignored ? <NotificationOffFilled /> : null,
+    unread: unread ? <FlagFilled /> : null,
+  }));
 };

@@ -1,6 +1,6 @@
 const { NotificationOff, Notification } = require("@carbon/icons-react");
 
-module.exports = [
+export const batchActions = [
   {
     id: "mute",
     text: "Mute",

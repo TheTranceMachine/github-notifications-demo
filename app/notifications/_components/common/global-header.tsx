@@ -2,16 +2,7 @@ import React from "react";
 import { Header, HeaderName, HeaderGlobalBar, HeaderGlobalAction, Button, Toggle } from "@carbon/react";
 import { SidePanelCloseFilled, SidePanelOpenFilled, Renew, UserAvatarFilledAlt } from "@carbon/icons-react";
 
-const GlobalHeader = ({
-  toggleShowAll,
-  showAllRead,
-  autoRefreshView,
-  getItems,
-  newItemsNumber,
-  itemsLoading,
-  toggle,
-  isToggled,
-}) => (
+const GlobalHeader = ({ autoRefreshView, getItems, newItemsNumber, itemsLoading, toggle, isToggled }) => (
   <Header aria-label="Github Notifications" className="global-header">
     <Button
       aria-label="Open side menu"
@@ -24,17 +15,6 @@ const GlobalHeader = ({
     />
     <HeaderName prefix="Github">Notifications</HeaderName>
     <HeaderGlobalBar>
-      <HeaderGlobalAction aria-label="FETCH ALSO MARKED AS READ" className="global-header__toggle-show-all">
-        <Toggle
-          defaultToggled
-          labelA=""
-          labelB=""
-          size="sm"
-          id="toggle-show-all-read"
-          onClick={toggleShowAll}
-          toggled={showAllRead}
-        />
-      </HeaderGlobalAction>
       <HeaderGlobalAction onClick={autoRefreshView} aria-label="CHECK FOR NEW">
         <Renew className={itemsLoading ? "global-header__refresh-icon--spin" : ""} />
       </HeaderGlobalAction>

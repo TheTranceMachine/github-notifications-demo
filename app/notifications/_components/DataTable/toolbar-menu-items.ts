@@ -1,4 +1,4 @@
-module.exports = [
+export const toolbarMenuItems = [
   {
     id: "subscribed",
     label: "Subscribed",

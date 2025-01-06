@@ -1,8 +1,11 @@
-@use "@carbon/react/scss/themes" as *;
-@use "@carbon/react/scss/theme" as *;
-$carbon--theme: $carbon--theme--g90;
-@include carbon--theme();
 @use "@carbon/react";
+@use "@carbon/react/scss/theme" as *;
+@use "@carbon/react/scss/themes" as *;
+// $carbon--theme: $carbon--theme--g90;
+// @include carbon--theme();
+@use "sass:color";
+
+$background: #1d1d1d;
 
 .login {
   padding: 20px;

@@ -10,7 +10,13 @@ const sideNavLinks = [
 ];
 
 const GlobalSideNav = ({ activeLink, isSideNavExpanded }) => (
-  <SideNav isPersistent={false} expanded={isSideNavExpanded} aria-label="Side navigation" className="side-nav">
+  <SideNav
+    inert={true}
+    isPersistent={false}
+    expanded={isSideNavExpanded}
+    aria-label="Side navigation"
+    className="side-nav"
+  >
     <SideNavItems>
       {sideNavLinks.map((sideNavLink) => (
         <SideNavLink isActive={activeLink === sideNavLink.id} href={sideNavLink.link} key={sideNavLink.id}>

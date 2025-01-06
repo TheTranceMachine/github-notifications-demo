@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   sassOptions: {
-    includePaths: [path.join(__dirname, 'node_modules')],
+    includePaths: ['node_modules'],
   },
 };
 

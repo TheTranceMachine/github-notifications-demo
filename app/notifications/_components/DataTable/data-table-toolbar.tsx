@@ -9,8 +9,8 @@ import {
   Checkbox,
 } from "@carbon/react";
 import { CheckmarkOutline } from "@carbon/icons-react";
-import toolbarMenuItems from "./toolbarMenuItems";
-import batchActions from "./batchActions";
+import { toolbarMenuItems } from "./toolbar-menu-items";
+import { batchActions } from "./batch-actions";
 
 const DataTableToolbar = ({
   onInputChange,
