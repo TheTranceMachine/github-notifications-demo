@@ -1,29 +1,35 @@
-# Redux Toolkit TypeScript Example
+# Github Notifications app
 
-This example shows how to integrate Next.js with [Redux Toolkit](https://redux-toolkit.js.org).
+## Problem
+An experienced SME in a corporate company has to deal with many PRs opened by members of their team and sometimes members of other teams.
+Whith this many PRs, it's hard to have an overview and bigger picture of the incoming work. 
+The email notifications coming into your inbox can sometimes be difficult to handle. Moreover, some PRs are opened by bots and are only spamming your inbox.
 
-**Redux Toolkit**(also known as "RTK" for short) provides a standardized way to write Redux logic. It includes utilities that help simplify many common use cases, including [store setup](https://redux-toolkit.js.org/api/configureStore), [creating reducers and writing immutable update logic](https://redux-toolkit.js.org/api/createreducer), and even [creating entire "slices" of state at once](https://redux-toolkit.js.org/api/createslice). This example showcases each of these features in conjunction with Next.js.
+## Solution
+A webapp that will give you an overview of opened PRs and notify you via system notifications when a new PR is opened, when you're tagged in a PR or when anything changes.
 
-## Deploy Your Own
+## Features
+- Categorize the view with filters.
+- Mute PRs opened by bots
+- Adjust the notifications parameters and sensitivity
+- Open PRs directly from the desktop app
+- Change status of PRs
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+## Tech stack
+- Github API
+- React.js
+- Redux
+- Redux Saga
+- carbon-components
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-redux&project-name=with-redux&repository-name=with-redux)
+## get it up and running.
 
-## How to Use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+After you clone this project, do the following:
 
 ```bash
-npx create-next-app --example with-redux with-redux-app
-```
+npm install
 
-```bash
-yarn create next-app --example with-redux with-redux-app
+# start app in your browser
+npm run dev
 ```
-
-```bash
-pnpm create next-app --example with-redux with-redux-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+Access locally: http://localhost:3000

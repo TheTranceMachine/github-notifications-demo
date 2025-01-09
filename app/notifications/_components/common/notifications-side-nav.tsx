@@ -9,7 +9,13 @@ const sideNavLinks = [
   },
 ];
 
-const NotificationsSideNav = ({ activeLink, isSideNavExpanded, theme }) => (
+type NotificationsSideNavTypes = {
+  activeLink: string;
+  isSideNavExpanded: boolean;
+  theme: { isDark: boolean };
+};
+
+const NotificationsSideNav = ({ activeLink, isSideNavExpanded, theme }: NotificationsSideNavTypes) => (
   <SideNav
     inert={true}
     isPersistent={false}

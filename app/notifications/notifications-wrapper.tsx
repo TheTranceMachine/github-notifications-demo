@@ -32,7 +32,7 @@ type NotificationsWrapperProps = {
   allNotifications: Notification[];
   allNotificationsStatus: string;
   repositories: any[];
-  theme: typeof GlobalTheme;
+  theme: { isDark: boolean };
 };
 
 const NotificationsWrapper = ({

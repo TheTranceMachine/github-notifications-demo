@@ -1,11 +1,9 @@
 import { DateTime } from "luxon";
 import { Button, Tag } from "@carbon/react";
 import { Launch, NotificationOffFilled, FlagFilled } from "@carbon/icons-react";
-import { setNotificationAsRead } from "@/lib/features/notifications/notificationsSlice";
 import { ProcessedNotification } from "@/app/types";
-import { useAppDispatch } from "@/lib/hooks";
 
-const tagReason = (reason) => {
+const tagReason = (reason: string) => {
   switch (reason) {
     case "review_requested":
       return (
@@ -34,13 +32,14 @@ const tagReason = (reason) => {
   }
 };
 
-const onClick = (id, html_url) => {
-  const dispatch = useAppDispatch();
-  dispatch(setNotificationAsRead(id));
-  window.open(html_url, "_blank");
+const onClick = (id: string, html_url: string | URL | undefined) => {
+  // demo code to open the PR in a new tab
+  // set as read
+  // window.open(html_url, "_blank");
+  console.log(id, html_url);
 };
 
-const actions = (id, html_url) => (
+const actions = (id: string, html_url: string | URL | undefined) => (
   <div className="notifications__table__actions">
     <Button
       kind="secondary"

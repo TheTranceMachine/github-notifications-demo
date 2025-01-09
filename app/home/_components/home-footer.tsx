@@ -7,7 +7,11 @@ const audiowide = localFont({
   src: "../../fonts/Audiowide/Audiowide-Regular.ttf",
 });
 
-const HomeFooter = ({ theme }) => (
+type HomeFooterTypes = {
+  theme: { isDark: boolean };
+};
+
+const HomeFooter = ({ theme }: HomeFooterTypes) => (
   <div className={cx("home-footer", { dark: theme.isDark }, { light: !theme.isDark })}>
     <FlexGrid fullWidth>
       <Row>

@@ -7,7 +7,7 @@ import HomeHeader from "./_components/home-header";
 import HomeFooter from "./_components/home-footer";
 
 export default function HomePage() {
-  const theme = useTheme();
+  const theme = useTheme() as { isDark: boolean };
 
   return (
     <Stack>

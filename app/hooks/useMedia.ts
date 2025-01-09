@@ -1,9 +1,13 @@
 import { useState, useCallback, useEffect } from "react";
-const useMediaQuery = (query) => {
+const useMediaQuery = (query: string) => {
   const [targetReached, setTargetReached] = useState(false);
 
+  type MediaQueryListEvent = {
+    matches: boolean;
+  }
+
   const updateTarget = useCallback(
-    (e) => {
+    (e: MediaQueryListEvent) => {
       if (e.matches) {
         setTargetReached(true);
       } else {

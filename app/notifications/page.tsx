@@ -19,7 +19,7 @@ import NotificationsHeader from "./_components/common/notifications-header";
 import NotificationsSideNav from "./_components/common/notifications-side-nav";
 
 const Notifications = () => {
-  const theme = useTheme();
+  const theme = useTheme() as { isDark: boolean };
   const router = useRouter();
   const dispatch = useAppDispatch();
 

@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function RootLayout({ children }: Props) {
-  const [theme, setTheme] = useState("g100");
+  const [theme, setTheme] = useState<"g100" | "white" | "g10" | "g90" | undefined>("g100");
 
   useEffect(() => {
     document.documentElement.dataset.carbonTheme = theme;

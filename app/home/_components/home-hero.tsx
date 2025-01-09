@@ -9,7 +9,11 @@ const audiowide = localFont({
   src: "../../fonts/Audiowide/Audiowide-Regular.ttf",
 });
 
-const HomeHero = ({ theme }) => {
+type HomeHeroTypes = {
+  theme: { isDark: boolean };
+};
+
+const HomeHero = ({ theme }: HomeHeroTypes) => {
   const mobile = MediaQuery(`(max-width: 768px)`);
   const tablet = MediaQuery(`(min-width: 768px) and (max-width: 1024px)`);
 
