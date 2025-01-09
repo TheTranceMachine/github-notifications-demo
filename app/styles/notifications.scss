@@ -4,7 +4,9 @@
 @use "@carbon/styles/scss/theme";
 @use "@carbon/styles/scss/themes";
 
-$background: #1d1d1d;
+$dark-background: #1d1d1d;
+$light-background: #f4f4f4;
+$test: #c6c6c6;
 
 :root[data-carbon-theme="g10"] {
   @include theme.theme(themes.$g10);
@@ -14,9 +16,16 @@ $background: #1d1d1d;
   @include theme.theme(themes.$g100);
 }
 
-.global-header {
-  background-color: lighten($background, 5%);
+.notifications-header {
   border-bottom: 1px solid $border-subtle;
+
+  &.dark {
+    background-color: $dark-background;
+  }
+
+  &.light {
+    background-color: $light-background;
+  }
 
   &__new-notifications-icon {
     background-color: red;
@@ -78,7 +87,7 @@ $background: #1d1d1d;
       }
 
       &__row--unread td {
-        background-color: lighten($background, 10%);
+        background-color: lighten($dark-background, 10%);
       }
     }
 

@@ -13,7 +13,7 @@ import { toolbarMenuItems, ToolbarMenuItemsTypes } from "./toolbar-menu-items";
 import { batchActions, BatchActionsTypes } from "./batch-actions";
 
 type DataTableToolbarProps = {
-  onInputChange: (event: "" | React.ChangeEvent<HTMLInputElement>, value?: string) => void;
+  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   filtersChecked: { id: string; checked: boolean }[];
   setFilter: (id: string) => void;
   getBatchActionProps: () => { shouldShowBatchActions: boolean };

@@ -1,4 +1,3 @@
-import React from "react";
 import { SideNav, SideNavItems, SideNavLink } from "@carbon/react";
 
 const sideNavLinks = [
@@ -9,7 +8,7 @@ const sideNavLinks = [
   },
 ];
 
-const GlobalSideNav = ({ activeLink, isSideNavExpanded }) => (
+const NotificationsSideNav = ({ activeLink, isSideNavExpanded }) => (
   <SideNav
     inert={true}
     isPersistent={false}
@@ -27,4 +26,4 @@ const GlobalSideNav = ({ activeLink, isSideNavExpanded }) => (
   </SideNav>
 );
 
-export default GlobalSideNav;
+export default NotificationsSideNav;
