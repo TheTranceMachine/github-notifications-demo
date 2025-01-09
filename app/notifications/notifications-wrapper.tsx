@@ -21,6 +21,7 @@ import {
   TableSelectRow,
   DataTableSkeleton,
   DataTableRow,
+  type GlobalTheme,
 } from "@carbon/react";
 import DataTableToolbar from "./_components/DataTable/data-table-toolbar";
 import { notificationTypes } from "./notification-types";
@@ -31,12 +32,14 @@ type NotificationsWrapperProps = {
   allNotifications: Notification[];
   allNotificationsStatus: string;
   repositories: any[];
+  theme: typeof GlobalTheme;
 };
 
 const NotificationsWrapper = ({
   allNotifications,
   allNotificationsStatus,
   repositories,
+  theme,
 }: NotificationsWrapperProps) => {
   const dispatch = useAppDispatch();
   const [notifications, setNotifications] = useState([]);
@@ -156,10 +159,14 @@ const NotificationsWrapper = ({
                     <TableRow
                       {...getRowProps({ row })}
                       key={row.id}
-                      className={cx({
-                        "notifications__table__body__row--unread":
-                          row.cells[0].info.header === "unread" && row.cells[0].value,
-                      })}
+                      className={cx(
+                        {
+                          "notifications__table__body__row--unread":
+                            row.cells[0].info.header === "unread" && row.cells[0].value,
+                        },
+                        { dark: theme.isDark },
+                        { light: !theme.isDark }
+                      )}
                     >
                       <TableSelectRow {...getSelectionProps({ row })} key={row.id} />
                       {row.cells.map((cell) => (

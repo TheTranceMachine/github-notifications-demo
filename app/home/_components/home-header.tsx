@@ -1,4 +1,5 @@
 import { Header, HeaderMenuItem, HeaderName, HeaderNavigation } from "@carbon/react";
+import Link from "next/link";
 
 const HomeHeader = () => (
   <Header aria-label="Home Header" className="home-header">
@@ -6,8 +7,12 @@ const HomeHeader = () => (
       Notifications
     </HeaderName>
     <HeaderNavigation aria-label="Github Notifications">
-      <HeaderMenuItem href="#home">Home</HeaderMenuItem>
-      <HeaderMenuItem href="/notifications">Demo</HeaderMenuItem>
+      <HeaderMenuItem href="#home" as={Link}>
+        Home
+      </HeaderMenuItem>
+      <HeaderMenuItem href="/notifications" as={Link}>
+        Demo
+      </HeaderMenuItem>
     </HeaderNavigation>
   </Header>
 );

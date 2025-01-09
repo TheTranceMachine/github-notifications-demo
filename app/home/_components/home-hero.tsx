@@ -1,4 +1,4 @@
-import { Row, Column } from "@carbon/react";
+import { Row, Column, Button } from "@carbon/react";
 import Image from "next/image";
 import localFont from "next/font/local";
 import cx from "classnames";
@@ -20,6 +20,11 @@ const HomeHero = ({ theme }) => {
           <Column>
             <h1 className={cx({ glow: theme.isDark }, audiowide.className)}>Github Notifications</h1>
             <p className="home-hero__description">Get notifications for your Github repositories in real-time.</p>
+            {mobile || tablet ? (
+              <Button kind="primary" size="lg" href="/notifications" className="home-hero__button">
+                Try Demo
+              </Button>
+            ) : null}
             <div className="divider--solid" />
             <HomeFeatures />
           </Column>
@@ -36,7 +41,7 @@ const HomeHero = ({ theme }) => {
         }}
       >
         <Image
-          src="/images/screenshot.png"
+          src={theme.isDark ? "/images/screenshot-dark.png" : "/images/screenshot-light.png"}
           alt="Demo Screenshot"
           sizes="100vw"
           style={{

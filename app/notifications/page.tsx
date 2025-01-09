@@ -51,12 +51,13 @@ const Notifications = () => {
         navigate={() => router.push("/home")}
         theme={theme}
       />
-      <NotificationsSideNav activeLink="notifications" isSideNavExpanded={isToggled} />
+      <NotificationsSideNav activeLink="notifications" isSideNavExpanded={isToggled} theme={theme} />
       <div className={cx({ "main-content--offset": isToggled })}>
         <NotificationsWrapper
           allNotifications={allNotifications}
           allNotificationsStatus={allNotificationsStatus}
           repositories={repositories}
+          theme={theme}
         />
       </div>
     </>

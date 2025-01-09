@@ -43,8 +43,14 @@ $test: #c6c6c6;
 }
 
 .side-nav {
-  background-color: #3d3d3d;
-  border-right: 3px solid #343434;
+  border-right: 1px solid $border-subtle;
+
+  &.dark {
+    background-color: #3d3d3d;
+  }
+  &.light {
+    background-color: #f4f4f4;
+  }
 
   &__filters-menu {
     border-top: 1px solid $border-subtle;
@@ -86,8 +92,17 @@ $test: #c6c6c6;
         padding: 1rem;
       }
 
-      &__row--unread td {
-        background-color: lighten($dark-background, 10%);
+      &__row--unread {
+        &.dark {
+          td {
+            background-color: lighten($dark-background, 10%);
+          }
+        }
+        &.light {
+          td {
+            background-color: darken($light-background, 1%);
+          }
+        }
       }
     }
 

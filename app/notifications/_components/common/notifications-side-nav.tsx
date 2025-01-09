@@ -1,4 +1,5 @@
 import { SideNav, SideNavItems, SideNavLink } from "@carbon/react";
+import cx from "classnames";
 
 const sideNavLinks = [
   {
@@ -8,13 +9,13 @@ const sideNavLinks = [
   },
 ];
 
-const NotificationsSideNav = ({ activeLink, isSideNavExpanded }) => (
+const NotificationsSideNav = ({ activeLink, isSideNavExpanded, theme }) => (
   <SideNav
     inert={true}
     isPersistent={false}
     expanded={isSideNavExpanded}
     aria-label="Side navigation"
-    className="side-nav"
+    className={cx("side-nav", { dark: theme.isDark }, { light: !theme.isDark })}
   >
     <SideNavItems>
       {sideNavLinks.map((sideNavLink) => (
