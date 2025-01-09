@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type ReactNode } from "react";
 import { GlobalTheme, Theme } from "@carbon/react";
+import { Analytics } from "@vercel/analytics/react";
 import { StoreProvider } from "./StoreProvider";
 import ThemeSwitcher from "./_components/theme-switcher";
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: Props) {
                 theme={theme}
               />
               {children}
+              <Analytics />
             </Theme>
           </GlobalTheme>
         </body>
