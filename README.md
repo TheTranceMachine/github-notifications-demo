@@ -17,9 +17,9 @@ A webapp that will give you an overview of opened PRs and notify you via system 
 
 ## Tech stack
 - Github API
+- Next.js
 - React.js
-- Redux
-- Redux Saga
+- Redux Toolkit
 - carbon-components
 
 ## get it up and running.
